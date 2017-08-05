@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="common::head"></th:block>
+  <title>Book Search</title>
+</head>
+<body>
+
+<th:block th:replace="common::header"></th:block>
+
+<div class="container">
+  <form class="form-horizontal" id="searchForm" method="post" th:action="@{'/book'}"  th:object="${bookForm}" >
+    <div class="form-group">
+      <label class="control-label col-xs-2">Book name</label>
+      <div class="col-xs-5">
+        <input type="text" class="form-control" id="bookName" th:field="*{bookName}" th:errorclass="fieldError" placeholder="spring boot" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-xs-2">Tag</label>
+      <div class="col-xs-5">
+        <input type="text" class="form-control" id="tag" th:field="*{tag}" th:errorclass="fieldError" placeholder="spring" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-offset-2 col-xs-10">
+        <button type="submit" class="btn btn-default" id="btn">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <a href="/book/edit.html" th:href="@{'/book/create'}" class="btn btn-info" id="createBtn">Create</a>
+
+  <table class="table table-sprite">
+    <thead>
+      <tr>
+        <th>書籍名</th>
+        <th>Link</th>
+        <th>タグ</th>
+        <th>説明</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="book : ${booklist}" th:object="${book}">
+        <td th:text="*{bookName}"></td>
+        <td th:href="*{link}"></td>
+        <td th:text="*{tag}"></td>
+        <td th:text="*{description}"></td>
+        <td>
+          <div class="btn-group btn-group-lg" role="group">
+            <a href="/book/edit.html" th:href="@{'/book/edit/__${book.bookId}__'}" class="btn btn-info" id="editBtn">Edit</a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
