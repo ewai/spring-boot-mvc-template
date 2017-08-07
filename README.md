@@ -13,4 +13,9 @@
 * java
 * jpa
 
+## how to
+
+db construction
+
+https://github.com/ewai/spring-boot-template-mysql
 
