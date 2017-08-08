@@ -10,11 +10,19 @@
 
 <div class="container">
   <form class="form-horizontal" id="bookForm" method="post" th:action="@{'/book/save'}"  th:object="${bookForm}" >
+
+
+    <th:block th:fragment="inputErrorMessage" th:if="${#fields.hasErrors()}">
+      <span th:text="#{input.error}" class="error-message">エラーが発生しました</span>
+    </th:block>
+
+
     <input type="hidden" class="form-control" id="bookId" th:field="*{bookId}"  />
     <div class="form-group">
-      <label class="control-label col-xs-2">Book name</label>
+      <label class="control-label col-xs-2">* Book name</label>
       <div class="col-xs-5">
         <input type="text" class="form-control" id="bookName" th:field="*{bookName}" th:errorclass="fieldError" placeholder="spring boot" />
+        <span th:if="${#fields.hasErrors('*{bookName}')}" th:errors="*{bookName}" class="error-message" />
       </div>
     </div>
     <div class="form-group">
@@ -27,6 +35,7 @@
       <label class="control-label col-xs-2">Link</label>
       <div class="col-xs-5">
         <input type="text" class="form-control" id="link" th:field="*{link}" th:errorclass="fieldError" placeholder="http://xxx" />
+        <span th:if="${#fields.hasErrors('*{link}')}" th:errors="*{link}"  class="error-message" />
       </div>
     </div>
     <div class="form-group">

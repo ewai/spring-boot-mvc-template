@@ -1,8 +1,12 @@
 package info.ewai.sbmt.web.form;
 
+import java.io.Serializable;
+
 import info.ewai.sbmt.domain.Book;
 
-public class BookForm {
+public class BookForm implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     public BookForm() {
     }

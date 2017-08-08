@@ -2,11 +2,17 @@ package info.ewai.sbmt.web;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +24,16 @@ import info.ewai.sbmt.web.form.BookForm;
 
 @Controller
 public class BookController {
+
+    private static Logger logger = LoggerFactory.getLogger(BookController.class);
+
+    @Autowired
+    BookValidator bookValidator;
+
+    @InitBinder
+    public void validatorBinder(WebDataBinder binder) {
+        binder.addValidators(bookValidator);
+    }
 
     @Autowired
     BookService bookservice;
@@ -45,13 +61,14 @@ public class BookController {
 
     @RequestMapping(value = "/book/edit/{bookId}", method = RequestMethod.GET)
     public String edit(@PathVariable Long bookId, Model model) {
+        logger.info("edit: bookId=" + bookId);
         if (StringUtils.isEmpty(bookId)) {
             model.addAttribute("bookForm", new BookForm());
             return "/book-edit";
         }
         Book book = this.bookservice.findOne((bookId));
         if (book == null) {
-            // error, not found data
+            // TODO error, not found data
             return "book-edit";
         } else {
             model.addAttribute("bookForm", new BookForm(book));
@@ -60,20 +77,29 @@ public class BookController {
     }
 
     @RequestMapping(value = "/book/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute BookForm bookForm, BindingResult result, Model model) {
+    public String save(@Valid @ModelAttribute BookForm bookForm, BindingResult result, Model model) {
+        logger.info("edit: save=" + bookForm.getBookId());
+
+        if (result.hasErrors()) {
+            return "book-edit";
+        }
+
+        // TODO exception logic
+        // try {
         this.bookservice.save(new Book(bookForm));
+
         return "book-complete";
     }
 
     @RequestMapping(value = "/book/delete/{bookId}", method = RequestMethod.GET)
     public String delete(@PathVariable Long bookId, Model model) {
         if (StringUtils.isEmpty(bookId)) {
-            // error
+            // TODO error
             return "book-edit";
         }
         Book book = this.bookservice.findOne((bookId));
         if (book == null) {
-            // error, not found data
+            // TODO error, not found data
             return "book-edit";
         } else {
             this.bookservice.delete(book);

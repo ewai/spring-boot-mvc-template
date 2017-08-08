@@ -13,3 +13,12 @@ a:visited {
 a:hover {
 	text-decoration:none;
 }
+
+.error-message {
+	color:red;
+}
+
+.fieldError {
+	 background-color:lemonchiffon;
+}
+
