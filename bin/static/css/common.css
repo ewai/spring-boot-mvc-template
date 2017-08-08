@@ -1,0 +1,24 @@
+
+a {
+	text-decoration:none;
+}
+
+a:link {
+	text-decoration:none;
+}
+
+a:visited {
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:none;
+}
+
+.error-message {
+	color:red;
+}
+
+.fieldError {
+	 background-color:lemonchiffon;
+}
+

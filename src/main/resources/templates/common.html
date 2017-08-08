@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- common head -->
+<th:block th:fragment="head"><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
+  <link href="/css/common.css"
+        th:href="@{/css/common.css}" rel="stylesheet" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+          th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+          th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script></th:block>
+</head>
+<body>
+<div th:fragment="header" class="container">
+  <h1><a href="/book">Book</a></h1>
+</div>
+
+</body>
+</html>
