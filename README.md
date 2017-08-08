@@ -17,5 +17,5 @@
 
 db construction
 
-https://github.com/ewai/spring-boot-template-mysql
+https://github.com/ewai/docker-spring-boot-template-mysql
 
