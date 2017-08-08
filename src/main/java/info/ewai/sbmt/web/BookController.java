@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -77,6 +78,7 @@ public class BookController {
     }
 
     @RequestMapping(value = "/book/save", method = RequestMethod.POST)
+    @Transactional
     public String save(@Valid @ModelAttribute BookForm bookForm, BindingResult result, Model model) {
         logger.info("edit: save=" + bookForm.getBookId());
 
@@ -87,11 +89,16 @@ public class BookController {
         // TODO exception logic
         // try {
         this.bookservice.save(new Book(bookForm));
+        
+        if (1 == 1) {
+            throw new RuntimeException("tran error");
+        }
 
         return "book-complete";
     }
 
     @RequestMapping(value = "/book/delete/{bookId}", method = RequestMethod.GET)
+    @Transactional
     public String delete(@PathVariable Long bookId, Model model) {
         if (StringUtils.isEmpty(bookId)) {
             // TODO error
