@@ -31,9 +31,9 @@ public class BookValidator implements Validator {
         // required check
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "bookName", "field.required");
 
-        BookForm form = BookForm.class.cast(target);
-
-        // etc check
+        // BookForm form = BookForm.class.cast(target);
+        // form check
+        // errors.rejectValue("field", "errorCode");
 
     }
 }
