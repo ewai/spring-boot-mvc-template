@@ -8,9 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -61,15 +59,12 @@ public class BookController {
     }
 
     @RequestMapping(value = "/book/edit/{bookId}", method = RequestMethod.GET)
-    public String edit(@PathVariable Long bookId, Model model) {
-        logger.info("edit: bookId=" + bookId);
-        if (StringUtils.isEmpty(bookId)) {
-            model.addAttribute("bookForm", new BookForm());
-            return "/book-edit";
-        }
+    public String edit(@ModelAttribute BookForm bookForm, BindingResult result, @PathVariable Long bookId, Model model) {
+        logger.info("edit/" + bookId);
+
         Book book = this.bookservice.findOne((bookId));
         if (book == null) {
-            // TODO error, not found data
+            result.reject("not.found", new Object[]{""}, "");
             return "book-edit";
         } else {
             model.addAttribute("bookForm", new BookForm(book));
@@ -78,39 +73,42 @@ public class BookController {
     }
 
     @RequestMapping(value = "/book/save", method = RequestMethod.POST)
-    @Transactional
     public String save(@Valid @ModelAttribute BookForm bookForm, BindingResult result, Model model) {
-        logger.info("edit: save=" + bookForm.getBookId());
+        logger.info("save/" + bookForm.getBookId());
 
         if (result.hasErrors()) {
             return "book-edit";
         }
 
-        // TODO exception logic
-        // try {
-        this.bookservice.save(new Book(bookForm));
-        
-        if (1 == 1) {
-            throw new RuntimeException("tran error");
+        try {
+            this.bookservice.save(new Book(bookForm));
+        } catch (Exception e) {
+            result.reject("exception.error");
+            result.reject("using defaultMessage", e.toString());
+            return "book-edit";
         }
 
         return "book-complete";
     }
 
     @RequestMapping(value = "/book/delete/{bookId}", method = RequestMethod.GET)
-    @Transactional
-    public String delete(@PathVariable Long bookId, Model model) {
-        if (StringUtils.isEmpty(bookId)) {
-            // TODO error
-            return "book-edit";
-        }
+    public String delete(@ModelAttribute BookForm bookForm, BindingResult result, @PathVariable Long bookId, Model model) {
+        logger.info("delete/ " + bookId);
+
         Book book = this.bookservice.findOne((bookId));
         if (book == null) {
-            // TODO error, not found data
+            result.reject("not.found", new Object[]{"削除"}, "");
             return "book-edit";
-        } else {
+        } 
+
+        try {
             this.bookservice.delete(book);
+        } catch (Exception e) {
+            result.reject("exception.error");
+            result.reject("using defaultMessage", e.toString());
+            return "book-edit";
         }
+
         return "book-complete";
     }
 

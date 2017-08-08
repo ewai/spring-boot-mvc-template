@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import info.ewai.sbmt.domain.Book;
@@ -30,10 +31,12 @@ public class BookService {
         return this.bookRepository.findOne(bookId.longValue());
     }
 
+    @Transactional
     public Book save(Book book) {
         return this.bookRepository.save(book);
     }
 
+    @Transactional
     public void delete(Book book) {
         this.bookRepository.delete(book);
     }

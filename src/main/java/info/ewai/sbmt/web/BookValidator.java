@@ -1,7 +1,5 @@
 package info.ewai.sbmt.web;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -14,8 +12,6 @@ import info.ewai.sbmt.web.form.BookForm;
 @Component
 public class BookValidator implements Validator {
 
-    private static Logger logger = LoggerFactory.getLogger(BookValidator.class);
-
     @Autowired
     BookService bookService;
 
@@ -26,14 +22,17 @@ public class BookValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        logger.info("validate");
 
         // required check
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "bookName", "field.required");
 
+        // TODO form check
         // BookForm form = BookForm.class.cast(target);
-        // form check
         // errors.rejectValue("field", "errorCode");
 
+        // global message
+        if (errors.hasErrors()) {
+            errors.reject("input.error");
+        }
     }
 }
