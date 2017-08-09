@@ -17,8 +17,9 @@ public class SimpleController {
         return "login";
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String test() {
-        return "test";
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout() {
+        return "index";
     }
+
 }

@@ -1,24 +1,38 @@
 
 a {
-	text-decoration:none;
+    text-decoration:none;
 }
 
 a:link {
-	text-decoration:none;
+    text-decoration:none;
 }
 
 a:visited {
-	text-decoration:none;
+    text-decoration:none;
 }
 a:hover {
-	text-decoration:none;
+    text-decoration:none;
 }
 
 .error-message {
-	color:red;
+    color:red;
+    font-weight:bold;
 }
 
-.fieldError {
-	 background-color:lemonchiffon;
+#header {
+    background-color:powderblue;
+    margin-bottom:30px;
 }
+
+#footer {
+    background-color:powderblue;
+    margin-top:30px;
+    padding:10px 5px;
+}
+
+#footer li {
+    display:table-cell;
+    padding-left:10px;
+}
+
 

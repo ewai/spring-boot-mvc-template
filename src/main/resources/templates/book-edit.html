@@ -1,72 +1,71 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <th:block th:include="common::head"></th:block>
-  <title>Book</title>
+    <th:block th:include="common::head"></th:block>
+    <title>Book</title>
 </head>
 <body>
+    <th:block th:replace="common::header"></th:block>
 
-<th:block th:replace="common::header"></th:block>
+    <div class="container">
+        <form class="form-horizontal" id="bookForm" method="post" th:action="@{'/book/save'}"  th:object="${bookForm}" >
+            <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger" role="alert">
+                <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+            </div>
 
-<div class="container">
-  <form class="form-horizontal" id="bookForm" method="post" th:action="@{'/book/save'}"  th:object="${bookForm}" >
+            <input type="hidden" class="form-control" id="bookId" th:field="*{bookId}"  />
+            <div class="form-group">
+                <label class="control-label col-xs-2">* Book name</label>
+                <div class="col-xs-5">
+                    <input type="text" class="form-control" id="bookName" th:field="*{bookName}" th:errorclass="fieldError" placeholder="spring boot" />
+                    <span th:if="${#fields.hasErrors('*{bookName}')}" th:errors="*{bookName}" th:errorclass="error-message" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-2">Tag</label>
+                <div class="col-xs-5">
+                    <input type="text" class="form-control" id="tag" th:field="*{tag}" th:errorclass="fieldError" placeholder="spring java thymeleaf" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-2">Link</label>
+                <div class="col-xs-5">
+                    <input type="text" class="form-control" id="link" th:field="*{link}" th:errorclass="fieldError" placeholder="http://xxx" />
+                    <span th:if="${#fields.hasErrors('*{link}')}" th:errors="*{link}"  class="error-message" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-2">Image link</label>
+                <div class="col-xs-5">
+                    <textarea class="form-control" id="description" th:field="*{img}" th:errorclass="fieldError" placeholder="" rows="5" />
+                </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-2">Description</label>
+              <div class="col-xs-5">
+                  <input type="text" class="form-control" id="description" th:field="*{description}" th:errorclass="fieldError" placeholder="" />
+              </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-2"></label>
+                <div class="col-xs-5">
+                    <div class="btn-group btn-group-lg" role="group">
+                        <button type="submit" class="btn btn-info" id="saveBtn">Save</button>
+                        <a href="/book/edit.html" th:href="@{'/book/delete/__${bookForm.bookId}__'}" class="btn btn-danger" id="deleteBtn">Delete</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-2"></label>
+                <div class="col-xs-5">
+                    <div class="btn-group btn-group-lg" role="group">
+                        <a href="/book" th:href="@{/book}" class="btn btn-link" id="link">戻る</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+     </div>
 
-    <div th:if="${#fields.hasGlobalErrors()}">
-      <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="error-message"></p>
-    </div>
-
-    <input type="hidden" class="form-control" id="bookId" th:field="*{bookId}"  />
-    <div class="form-group">
-      <label class="control-label col-xs-2">* Book name</label>
-      <div class="col-xs-5">
-        <input type="text" class="form-control" id="bookName" th:field="*{bookName}" th:errorclass="fieldError" placeholder="spring boot" />
-        <span th:if="${#fields.hasErrors('*{bookName}')}" th:errors="*{bookName}" th:errorclass="error-message" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-xs-2">Tag</label>
-      <div class="col-xs-5">
-        <input type="text" class="form-control" id="tag" th:field="*{tag}" th:errorclass="fieldError" placeholder="spring java thymeleaf" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-xs-2">Link</label>
-      <div class="col-xs-5">
-        <input type="text" class="form-control" id="link" th:field="*{link}" th:errorclass="fieldError" placeholder="http://xxx" />
-        <span th:if="${#fields.hasErrors('*{link}')}" th:errors="*{link}"  class="error-message" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-xs-2">Image link</label>
-      <div class="col-xs-5">
-        <textarea class="form-control" id="description" th:field="*{img}" th:errorclass="fieldError" placeholder="" rows="5" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-xs-2">Description</label>
-      <div class="col-xs-5">
-        <input type="text" class="form-control" id="description" th:field="*{description}" th:errorclass="fieldError" placeholder="" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-xs-2"></label>
-      <div class="col-xs-5">
-        <div class="btn-group btn-group-lg" role="group">
-          <button type="submit" class="btn btn-info" id="saveBtn">Save</button>
-          <a href="/book/edit.html" th:href="@{'/book/delete/__${bookForm.bookId}__'}" class="btn btn-danger" id="deleteBtn">Delete</a>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-xs-2"></label>
-      <div class="col-xs-5">
-        <div class="btn-group btn-group-lg" role="group">
-          <a href="/book/edit.html" th:href="@{/book}" class="btn btn-link" id="link">back</a>
-        </div>
-      </div>
-    </div>
-  </form>
- </div>
- 
+    <th:block th:replace="common::footer"></th:block>
 </body>
 </html>

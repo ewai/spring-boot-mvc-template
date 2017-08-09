@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <th:block th:include="common::head"></th:block>
-  <title>Top page</title>
+    <th:block th:include="common::head"></th:block>
+    <title>Top page</title>
 </head>
 <body>
-<th:block th:replace="common::header"></th:block>
+    <th:block th:replace="common::header"></th:block>
+
+    <div class="container">
+        <h2>Hello Book !!</h2>
+        <div class="btn-group btn-group-lg" role="group">
+            <ul class="list-group">
+                <li class="list-group-item"><a href="/book" th:href="@{/book}" class="btn btn-link" id="link">Search Book</a></li>
+                <li class="list-group-item"><a href="/book/create" th:href="@{/book/create}" class="btn btn-link" id="link">Register Book</a></li>
+            </ul>
+        </div>
+    </div>
+
 </body>
 </html>
