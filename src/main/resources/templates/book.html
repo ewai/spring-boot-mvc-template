@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <th:block th:include="common::head"></th:block>
     <title>Book Search</title>
@@ -10,27 +11,29 @@
     <div class="container">
         <form class="form-horizontal" id="searchForm" method="post" th:action="@{'/book'}"  th:object="${bookForm}" >
             <div class="form-group">
-                <label class="control-label col-xs-2">Book name</label>
+                <label class="control-label col-xs-2">書籍名</label>
                 <div class="col-xs-5">
                     <input type="text" class="form-control" id="bookName" th:field="*{bookName}" th:errorclass="fieldError" placeholder="spring boot" />
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-2">Tag</label>
+                <label class="control-label col-xs-2">タグ</label>
                 <div class="col-xs-5">
                     <input type="text" class="form-control" id="tag" th:field="*{tag}" th:errorclass="fieldError" placeholder="spring" />
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-offset-2 col-xs-10">
-                    <button type="submit" class="btn btn-default" id="btn">Search</button>
+                    <button type="submit" class="btn btn-success" id="btn">検索</button>
                 </div>
             </div>
         </form>
-    
-        <a href="/book/edit.html" th:href="@{'/book/create'}" class="btn btn-info" id="createBtn">Create</a>
 
-        <table class="table table-sprite">
+        <div style="margin:10px 0px;" sec:authorize="hasRole('ROLE_ADMIN')">
+            <a href="/book/edit.html" th:href="@{'/book/create'}" class="btn btn-success" id="createBtn">新規登録</a>
+        </div>
+
+        <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>書籍</th>
@@ -47,8 +50,8 @@
                     <td th:text="*{tag}"></td>
                     <td th:text="*{description}"></td>
                     <td>
-                        <div class="btn-group btn-group-lg" role="group">
-                            <a href="/book/edit.html" th:href="@{'/book/edit/__${book.bookId}__'}" class="btn btn-info" id="editBtn">Edit</a>
+                        <div class="btn-group btn-group-lg" role="group" sec:authorize="hasRole('ROLE_ADMIN')"  >
+                            <a href="/book/edit.html" th:href="@{'/book/edit/__${book.bookId}__'}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success" id="editBtn">編集 / 削除</a>
                         </div>
                     </td>
                 </tr>

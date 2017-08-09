@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
 <!-- common head -->
 <th:block th:fragment="head"><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,12 +17,16 @@
 <body>
     <div th:fragment="header" class="container" id="header">
         <h1><a href="/">Book</a></h1>
+        <p style="text-align:right;" th:if="${#httpServletRequest.remoteUser != null}">Hello 
+          <span th:text="${#httpServletRequest.remoteUser}" /> | 
+          <a href="/logout">ログアウト</a>  | 
+          <a href="https://github.com/ewai/spring-boot-mvc-template" target="_blank" alt="spring-boot-mvc-template"><img src="img/mark-github.svg" /></a>
+        </p>
     </div>
 
     <div th:fragment="footer" class="container" id="footer">
         <ul>
-            <li><a href="/logout">ログアウト</a></li>
-            <li><a href="https://github.com/ewai/spring-boot-mvc-template" target="_blank">https://github.com/ewai/spring-boot-mvc-template</a></li>
+            <li><a href="https://github.com/ewai/spring-boot-mvc-template" target="_blank"><img src="img/mark-github.svg"  alt="spring-boot-mvc-template"/></a> <a href="https://github.com/ewai/spring-boot-mvc-template">spring-boot-mvc-template</a></li>
         </ul>
     </div>
 

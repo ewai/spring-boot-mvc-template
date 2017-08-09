@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <th:block th:include="common::head"></th:block>
     <title>Book</title>
@@ -15,33 +16,33 @@
 
             <input type="hidden" class="form-control" id="bookId" th:field="*{bookId}"  />
             <div class="form-group">
-                <label class="control-label col-xs-2">* Book name</label>
+                <label class="control-label col-xs-2">* 書籍名</label>
                 <div class="col-xs-5">
                     <input type="text" class="form-control" id="bookName" th:field="*{bookName}" th:errorclass="fieldError" placeholder="spring boot" />
                     <span th:if="${#fields.hasErrors('*{bookName}')}" th:errors="*{bookName}" th:errorclass="error-message" />
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-2">Tag</label>
+                <label class="control-label col-xs-2">タグ</label>
                 <div class="col-xs-5">
                     <input type="text" class="form-control" id="tag" th:field="*{tag}" th:errorclass="fieldError" placeholder="spring java thymeleaf" />
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-2">Link</label>
+                <label class="control-label col-xs-2">リンク</label>
                 <div class="col-xs-5">
                     <input type="text" class="form-control" id="link" th:field="*{link}" th:errorclass="fieldError" placeholder="http://xxx" />
                     <span th:if="${#fields.hasErrors('*{link}')}" th:errors="*{link}"  class="error-message" />
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-2">Image link</label>
+                <label class="control-label col-xs-2">画像タグ</label>
                 <div class="col-xs-5">
                     <textarea class="form-control" id="description" th:field="*{img}" th:errorclass="fieldError" placeholder="" rows="5" />
                 </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-xs-2">Description</label>
+              <label class="control-label col-xs-2">説明</label>
               <div class="col-xs-5">
                   <input type="text" class="form-control" id="description" th:field="*{description}" th:errorclass="fieldError" placeholder="" />
               </div>
@@ -50,8 +51,8 @@
                 <label class="control-label col-xs-2"></label>
                 <div class="col-xs-5">
                     <div class="btn-group btn-group-lg" role="group">
-                        <button type="submit" class="btn btn-info" id="saveBtn">Save</button>
-                        <a href="/book/edit.html" th:href="@{'/book/delete/__${bookForm.bookId}__'}" class="btn btn-danger" id="deleteBtn">Delete</a>
+                        <button type="submit" class="btn btn-info" id="saveBtn">更新</button>
+                        <a href="/book/edit.html" th:href="@{'/book/delete/__${bookForm.bookId}__'}" class="btn btn-danger" id="deleteBtn">削除</a>
                     </div>
                 </div>
             </div>
