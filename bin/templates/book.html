@@ -37,7 +37,6 @@
             <thead>
                 <tr>
                     <th>書籍</th>
-                    <th>リンク</th>
                     <th>タグ</th>
                     <th>説明</th>
                     <th></th>
@@ -45,8 +44,8 @@
             </thead>
             <tbody>
                 <tr th:each="book : ${booklist}" th:object="${book}">
-                    <td th:text="*{bookName}"></td>
-                    <td th:href="*{link}"></td>
+                    <td><a href="" th:href="*{link}" th:text="*{bookName}" target="_blank" /></td>
+                    <td th:utext="*{img}"></td>
                     <td th:text="*{tag}"></td>
                     <td th:text="*{description}"></td>
                     <td>
