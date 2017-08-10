@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import info.ewai.sbmt.service.UserService;
@@ -18,13 +19,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/images/**", "/css/**", "/javascript/**", "/webjars/**");
+        web.ignoring().antMatchers("/img/**", "/css/**", "/js/**", "/webjars/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/css/**", "/fonts/**", "/js/**", "/img/**").permitAll()
+                .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -45,11 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
-
-            // TODO 暗号化パスワードで対応する必要あり
-            // auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-            auth.userDetailsService(userService);
-
+            auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
         }
     }
 }

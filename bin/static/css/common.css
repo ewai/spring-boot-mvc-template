@@ -27,12 +27,12 @@ a:hover {
 #footer {
     background-color:powderblue;
     margin-top:30px;
-    padding:10px 5px;
+    padding:20px 5px;
 }
 
 #footer li {
     display:table-cell;
-    padding-left:10px;
+    padding-left:30px;
 }
 
 

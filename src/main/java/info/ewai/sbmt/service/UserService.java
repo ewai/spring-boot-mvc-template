@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import info.ewai.sbmt.domain.User;
 import info.ewai.sbmt.domain.UserRepository;
@@ -17,7 +18,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (username == null || "".equals(username)) {
+        if (StringUtils.isEmpty(username)) {
             throw new UsernameNotFoundException("Username is empty");
         }
         User user = userRepository.findByUsername(username);
