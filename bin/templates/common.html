@@ -16,7 +16,7 @@
 </head>
 <body>
     <div th:fragment="header" class="container" id="header">
-        <h1><a href="/">Book</a></h1>
+        <h1><a href="/" th:href="@{'/'}">Book</a></h1>
         <p style="text-align:right;" th:if="${#httpServletRequest.remoteUser != null}">Hello 
           <span th:text="${#httpServletRequest.remoteUser}" /> | 
           <a href="/logout" th:href="@{'/logout'}">ログアウト</a>  | 
