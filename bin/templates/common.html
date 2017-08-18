@@ -19,7 +19,7 @@
         <h1><a href="/">Book</a></h1>
         <p style="text-align:right;" th:if="${#httpServletRequest.remoteUser != null}">Hello 
           <span th:text="${#httpServletRequest.remoteUser}" /> | 
-          <a href="/logout">ログアウト</a>  | 
+          <a href="/logout" th:href="@{'/logout'}">ログアウト</a>  | 
           <a href="https://github.com/ewai/spring-boot-mvc-template" target="_blank" alt="spring-boot-mvc-template"><img src="img/mark-github.svg" /></a>
         </p>
     </div>

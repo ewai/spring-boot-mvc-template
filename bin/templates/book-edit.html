@@ -52,7 +52,7 @@
                 <div class="col-xs-5">
                     <div class="btn-group btn-group-lg" role="group">
                         <button type="submit" class="btn btn-info" id="saveBtn">更新</button>
-                        <a href="/book/edit.html" th:href="@{'/book/delete/__${bookForm.bookId}__'}" class="btn btn-danger" id="deleteBtn">削除</a>
+                        <a href="/book/edit.html" th:href="@{'/book/delete/__${bookForm.bookId}__'}" th:if="${bookForm.bookId}" class="btn btn-danger" id="deleteBtn">削除</a>
                     </div>
                 </div>
             </div>
