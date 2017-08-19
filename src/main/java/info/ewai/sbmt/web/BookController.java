@@ -55,7 +55,7 @@ public class BookController {
     @RequestMapping(value = "/book/create", method = RequestMethod.GET)
     public String create(Model model) {
         model.addAttribute("bookForm", new BookForm());
-        return "/book-edit";
+        return "book-edit";
     }
 
     @RequestMapping(value = "/book/edit/{bookId}", method = RequestMethod.GET)
